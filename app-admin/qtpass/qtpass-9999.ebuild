@@ -3,19 +3,19 @@
 
 EAPI=6
 
-MY_P="QtPass-${PV}"
 PLOCALES="ar_MA ca cs_CZ de_DE de_LU el_GR en_GB en_US es_ES fr_BE fr_FR fr_LU
 gl_ES he_IL hu_HU it_IT lb_LU nl_BE nl_NL pl_PL pt_PT ru_RU sv_SE zh_CN"
 
-inherit desktop l10n qmake-utils
+inherit desktop git-r3 l10n qmake-utils
 
 DESCRIPTION="multi-platform GUI for pass, the standard unix password manager"
 HOMEPAGE="https://qtpass.org/"
-SRC_URI="https://github.com/IJHack/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI=""
+EGIT_REPO_URI="https://github.com/IJHack/${PN}.git"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="test"
 
 RDEPEND="app-admin/pass
@@ -29,19 +29,14 @@ DEPEND="${RDEPEND}
 	dev-qt/qtsvg:5
 	test? ( dev-qt/qttest:5 )"
 
-S="${WORKDIR}/${MY_P}"
-
 DOCS=( CHANGELOG.md CONTRIBUTING.md FAQ.md README.md  )
 
 src_prepare() {
 	default
 
-	sed -i '/target.path = /s/$$\[QT_INSTALL_TESTS\]/$$PREFIX\$$[QT_INSTALL_TESTS\]/' \
-		tests/tests.pri || die "sed for tests.pri failed"
 	if ! use test ; then
 		sed -i \
 			-e '/SUBDIRS += src /s/tests //' \
-			-e '/main.depends = /s/tests/src/' \
 				qtpass.pro || die "sed for qtpass.pro failed"
 	fi
 
