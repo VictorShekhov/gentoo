@@ -1,0 +1,8 @@
+DEFINED_PHASES=compile install
+DEPEND=sys-apps/portage
+DESCRIPTION=Collection of Gentoo eclass manpages
+EAPI=6
+HOMEPAGE=https://www.gentoo.org/
+LICENSE=GPL-2
+SLOT=0
+_md5_=cf6caa1e912da808028114ec6864b197
