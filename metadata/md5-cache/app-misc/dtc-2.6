@@ -1,0 +1,14 @@
+DEFINED_PHASES=install postinst postrm unpack
+DEPEND=virtual/pkgconfig
+DESCRIPTION=KryoFlux Host Software
+EAPI=6
+HOMEPAGE=https://www.kryoflux.com
+IUSE=demos doc fast-firmware java static
+KEYWORDS=-* ~amd64 ~x86
+LICENSE=SPS
+RDEPEND=dev-libs/spsdeclib virtual/libusb:1 virtual/udev java? ( virtual/jre )
+RESTRICT=bindist mirror strip
+SLOT=0
+SRC_URI=https://www.kryoflux.com/download/kryoflux_2.6_linux.tar.bz2 https://www.kryoflux.com/kryoflux-ui.jar
+_eclasses_=desktop	2ccd1dd1dd7bfb8795eea024a4f91bb6	multilib	97f470f374f2e94ccab04a2fb21d811e	toolchain-funcs	885c7d8dd70a58825f3d17e35a3cd1e9	udev	d91cac2c73b94629cad2daea66e0d182	unpacker	f40f7b4bd5aa88c2a4ba7b0d1e0ded70	xdg-utils	f2c8335407f0b935b0a96d4adf23ef25
+_md5_=9828dd54dccb5ef205f24522b9164b7a
