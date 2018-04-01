@@ -1,0 +1,13 @@
+DEFINED_PHASES=install postinst postrm
+DEPEND=virtual/pkgconfig virtual/udev virtual/pkgconfig
+DESCRIPTION=Software for the Open Hardware Random Number Generator called OneRNG
+EAPI=6
+HOMEPAGE=https://www.onerng.info/
+IUSE=python_targets_python2_7 python_targets_python3_4 python_targets_python3_5
+KEYWORDS=~amd64 ~x86
+LICENSE=LGPL-3
+RDEPEND=app-crypt/gnupg dev-python/python-gnupg[python_targets_python2_7(-)?,python_targets_python3_4(-)?,python_targets_python3_5(-)?,-python_single_target_python2_7(-),-python_single_target_python3_4(-),-python_single_target_python3_5(-)] sys-apps/rng-tools sys-process/at virtual/udev
+SLOT=0
+SRC_URI=https://github.com/OneRNG/onerng.github.io/raw/master/sw/onerng_3.6.orig.tar.gz -> onerng-3.6.tar.gz
+_eclasses_=multibuild	72647e255187a1fadc81097b3657e5c3	multilib	97f470f374f2e94ccab04a2fb21d811e	python-r1	e9350ec46bb5c9f3504b4fbe8b8d8987	python-utils-r1	c9de01becf9df3f8c10aeec3dc693f5d	toolchain-funcs	885c7d8dd70a58825f3d17e35a3cd1e9	udev	d91cac2c73b94629cad2daea66e0d182
+_md5_=e1626bb7062d9e168d69e82c8ed7fa57
