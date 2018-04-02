@@ -1,0 +1,35 @@
+#!/sbin/openrc-run
+# Copyright 1999-2018 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+depend() {
+	use net
+}
+
+checkconfig() {
+	# Test, that all five config options 'STEAMCMD_*' are set
+	local var
+	for var in STEAMCMD_BINARY STEAMCMD_NAME STEAMCMD_PATH STEAMCMD_PID STEAMCMD_OPTS ; do
+		if [[ -z ${!var} ]] ; then
+			eerror "You must define ${var} in /etc/conf.d/steamcmd.${SVCNAME}!"
+			return 1
+		fi
+	done
+	return 0
+}
+
+start() {
+	checkconfig || return $?
+	ebegin "Starting SteamCMD (Mod: ${STEAMCMD_NAME})"
+	start-stop-daemon --start --background \
+		--chdir ${STEAMCMD_PATH} --exec screen --group steamcmd \
+		--make-pidfile --pidfile ${STEAMCMD_PID} --user steamcmd \
+		-- -DmUS ${STEAMCMD_NAME} ${STEAMCMD_PATH}/${STEAMCMD_BINARY} ${STEAMCMD_OPTS}
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping SteamCMD (Mod: ${STEAMCMD_NAME})"
+	start-stop-daemon --stop --pidfile "${STEAMCMD_PID}"
+	eend $?
+}

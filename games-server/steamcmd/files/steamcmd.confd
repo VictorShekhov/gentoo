@@ -1,0 +1,22 @@
+# Copyright 1999-2018 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+# Specifies, which server binary is used.
+# This whould be 'hlds_run' or 'srcds_run', depending on your game.
+STEAMCMD_BINARY="hlds_run"
+
+# Each SteamCMD instance should have it's own unique name.
+# You will see this name on your init script, when starting or stopping.
+STEAMCMD_NAME="valve"
+
+# Path to the files of your started server.
+# It's recommended to use:
+# '/opt/steamcmd/hlds' for older HL1 based mods.
+# '/opt/steamcmd/srcds' for newer HL2 based mods.
+STEAMCMD_PATH="/opt/steamcmd/hlds"
+
+# Path to the pid file of your started server
+STEAMCMD_PID="/run/valve.pid"
+
+# Options for your started server
+STEAMCMD_OPTS="-game valve +ip 127.0.0.1 +maxplayers 32 +map crossfire -pingboost 3"
