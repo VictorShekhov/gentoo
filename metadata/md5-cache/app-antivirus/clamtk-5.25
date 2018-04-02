@@ -1,0 +1,13 @@
+DEFINED_PHASES=install postinst postrm
+DEPEND=nls? ( sys-devel/gettext )
+DESCRIPTION=A graphical front-end for ClamAV
+EAPI=6
+HOMEPAGE=https://dave-theunsub.github.io/clamtk/
+IUSE=nls
+KEYWORDS=~amd64 ~x86
+LICENSE=|| ( Artistic GPL-1+ )
+RDEPEND=app-antivirus/clamav dev-perl/File-chdir dev-perl/Gtk2 dev-perl/JSON dev-perl/LWP-Protocol-https dev-perl/LWP-UserAgent-Cached dev-perl/Locale-gettext dev-perl/Text-CSV dev-perl/glib-perl dev-perl/libwww-perl virtual/perl-Digest-MD5 virtual/perl-Digest-SHA virtual/perl-Encode virtual/perl-MIME-Base64 virtual/perl-Time-Piece
+SLOT=0
+SRC_URI=https://bitbucket.org/davem_/clamtk/downloads/clamtk-5.25.tar.xz
+_eclasses_=desktop	2ccd1dd1dd7bfb8795eea024a4f91bb6	l10n	97f2753e3f1f3753d53d856c7c0bbb0b	perl-functions	01e8c68d5a528bbcda4d3c60205983df	xdg-utils	f2c8335407f0b935b0a96d4adf23ef25
+_md5_=33bce6b55733235606aba9908dd4e367
