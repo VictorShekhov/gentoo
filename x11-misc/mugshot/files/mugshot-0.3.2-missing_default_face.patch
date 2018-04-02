@@ -1,0 +1,18 @@
+--- a/mugshot/MugshotWindow.py	2016-10-18 12:27:27.000000000 +0200
++++ b/mugshot/MugshotWindow.py	2018-04-02 16:52:26.186359537 +0200
+@@ -257,10 +257,11 @@
+             logger.debug('Found profile image: %s' % str(image))
+ 
+             if os.path.isfile(face):
+-                if os.path.samefile(image, face):
+-                    self.updated_image = face
+-                else:
+-                    self.updated_image = None
++                if os.path.exists(image):
++                    if os.path.samefile(image, face):
++                          self.updated_image = face
++                    else:
++                          self.updated_image = None
+                 self.set_user_image(face)
+             elif os.path.isfile(image):
+                 self.updated_image = image
