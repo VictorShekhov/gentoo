@@ -1,0 +1,81 @@
+#!/sbin/openrc-run
+# Copyright 1999-2018 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+# Variables
+JAVA_RUNTIME="${JAVA_HOME-/usr}"/bin/java
+MINECRAFT_GROUP="minecraft"
+MINECRAFT_JAR="/usr/share/games/minecraft-server/minecraft-server.jar"
+MINECRAFT_LOGS="/var/log/minecraft-server"
+
+# If no symlink, set world name to 'main'
+MINECRAFT_NAME="${SVCNAME}"
+if [ "${MINECRAFT_NAME}" == "minecraft-server" ]; then
+	MINECRAFT_NAME="main"
+else
+	MINECRAFT_NAME="${SVCNAME#minecraft-server.}"
+fi
+
+# Variables
+MINECRAFT_PATH="/var/lib/minecraft-server/${MINECRAFT_NAME}"
+MINECRAFT_PID="/run/minecraft-server.${MINECRAFT_NAME}.pid"
+MINECRAFT_SCREEN="minecraft-server.${MINECRAFT_NAME}"
+MINECRAFT_USER="minecraft"
+
+depend() {
+	use net
+}
+
+checkconfig() {
+	# These blocks will ensure, when starting a new fresh server,
+	# that all files are in place and permissions are correctly set.
+
+	# Create directory for 'MINECRAFT_PATH', if not present and set permissions
+	if [ ! -d "${MINECRAFT_PATH}" ]; then
+		mkdir "${MINECRAFT_PATH}"
+		chown ${MINECRAFT_USER}:${MINECRAFT_GROUP} "${MINECRAFT_PATH}"
+	fi
+
+	# Accept EULA, if not present and set permissions
+	if [ ! -f "${MINECRAFT_PATH}"/eula.txt ]; then
+		echo "eula=true" > "${MINECRAFT_PATH}"/eula.txt
+		chown ${MINECRAFT_USER}:${MINECRAFT_GROUP} "${MINECRAFT_PATH}"/eula.txt
+	fi
+
+	# Create 'logs', if not present and set permissions
+	if [ ! -d "${MINECRAFT_LOGS}/${MINECRAFT_NAME}" ]; then
+		mkdir "${MINECRAFT_LOGS}/${MINECRAFT_NAME}"
+		chown ${MINECRAFT_USER}:${MINECRAFT_GROUP} "${MINECRAFT_LOGS}/${MINECRAFT_NAME}"
+	fi
+
+	# Symlink 'logs' if not present and set permissions
+	if [ ! -L "${MINECRAFT_PATH}"/logs ]; then
+		cd "${MINECRAFT_PATH}"
+		ln -s ../../../log/minecraft-server/"${MINECRAFT_NAME}" logs
+	fi
+
+	# Test, if 'MINECRAFT_OPTS' is set
+	if [[ -z ${MINECRAFT_OPTS} ]] ; then
+		eerror "You must define ${var} in /etc/conf.d/minecraft.${SVCNAME}!"
+		return 1
+	fi
+	return 0
+}
+
+start() {
+	checkconfig || return $?
+	ebegin "Starting Minecraft Server (World: ${MINECRAFT_NAME})"
+	start-stop-daemon --start --background \
+		--chdir ${MINECRAFT_PATH} --exec screen --group ${MINECRAFT_GROUP} \
+		--make-pidfile --pidfile ${MINECRAFT_PID} --user ${MINECRAFT_USER} \
+		-- -DmUS ${MINECRAFT_SCREEN} ${JAVA_RUNTIME} ${MINECRAFT_OPTS} -jar ${MINECRAFT_JAR}
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping Minecraft Server (World: ${MINECRAFT_NAME})"
+	start-stop-daemon --start --background \
+		--exec screen --group ${MINECRAFT_GROUP} --user ${MINECRAFT_USER} \
+		-- -S ${MINECRAFT_SCREEN} -p 0 -X stuff "stop^M"
+	eend $?
+}
