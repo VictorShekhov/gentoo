@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -25,9 +25,10 @@ RDEPEND="sys-power/acpi_call
 	dev-lang/perl"
 
 src_install() {
-	dodoc README battery_asl
+	dodoc README.md battery_asl
 	dobin tpacpi-bat
 	newinitd "${FILESDIR}"/${PN}.initd.2 ${PN}
 	newconfd "${FILESDIR}"/${PN}.confd.1 ${PN}
-	systemd_newunit tpacpi.service ${PN}.service
+	systemd_newunit examples/systemd_fixed_threshold/tpacpi.service \
+		${PN}.service
 }
