@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>ck+gentoo@bl4ckb0x.de</email>
+		<name>Conrad Kostecki</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>proxy-maint@gentoo.org</email>
+		<name>Proxy Maintainers</name>
+	</maintainer>
+	<longdescription>
+		Spectrum is an open source instant messaging transport.
+		It allows users to chat together even when they are using
+		different IM networks. It acts as a transport layer between
+		the users as showed in the animation above.
+	</longdescription>
+	<use>
+		<flag name="debug">Compile as a debug release.</flag>
+		<flag name="doc">Install optional documentation.</flag>
+		<flag name="frotz">Enable the Z-Engine backend.</flag>
+		<flag name="irc">Enable the IRC backend, based on net-im/libcommuni.</flag>
+		<flag name="mysql">Enable the MySQL/MariaDB storage.</flag>
+		<flag name="postgres">Enable the PostgreSQL storage.</flag>
+		<flag name="purple">Enable the libpurple backend, based on net-im/pidgin.</flag>
+		<flag name="sms">Enable the SMS backend, based on app-mobilephone/smstools.</flag>
+		<flag name="sqlite">Enable the SQLlite storage.</flag>
+		<flag name="test">Run all tests.</flag>
+		<flag name="twitter">Enable the Twitter backend, based on net-im/swiften.</flag>
+		<flag name="xmpp">Enable the XMPP backend, based on net-im/swiften.</flag>
+	</use>
+</pkgmetadata>

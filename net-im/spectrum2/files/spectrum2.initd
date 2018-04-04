@@ -1,0 +1,40 @@
+#!/sbin/openrc-run
+# Copyright 1999-2018 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+SPECTRUM2_GROUP="spectrum"
+SPECTRUM2_MANAGER="/usr/bin/spectrum2_manager"
+SPECTRUM2_USER="spectrum"
+
+depend() {
+	need net
+}
+
+start() {
+	ebegin "Starting Spectrum2 Transport"
+
+	# Create directory and set permissions
+	[ -d /var/run/spectrum2 ] || mkdir /var/run/spectrum2
+	chown ${SPECTRUM2_USER}:${SPECTRUM2_GROUP} /run/spectrum2
+
+	# Start Spectrum2 Transport"
+	start-stop-daemon --start --group ${SPECTRUM2_GROUP} --user ${SPECTRUM2_USER} \
+		--exec ${SPECTRUM2_MANAGER} start
+	eend $?
+}
+
+status() {
+	ebegin "Status Spectrum2 Transport"
+
+	# Status Spectrum2 Transport
+	${SPECTRUM2_MANAGER} status
+	eend $?
+}
+
+stop() {
+	# Stop Spectrum2 Transport
+	ebegin "Stopping Spectrum2 Transport"
+	start-stop-daemon --start --group ${SPECTRUM2_GROUP} --user ${SPECTRUM2_USER} \
+		--exec ${SPECTRUM2_MANAGER} stop
+	eend $?
+}
