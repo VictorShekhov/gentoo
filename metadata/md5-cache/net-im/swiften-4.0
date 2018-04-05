@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile configure install prepare
+DEPEND=dev-db/sqlite dev-libs/boost dev-libs/openssl:0= sys-libs/zlib avahi? ( net-dns/avahi ) ccache? ( dev-util/ccache ) distcc? ( sys-devel/distcc ) doc? ( app-text/docbook-xsl-stylesheets app-text/docbook-xml-dtd:4.5 ) expat? ( dev-libs/expat ) !expat? ( dev-libs/libxml2 ) icu? ( dev-libs/icu ) idn? ( net-dns/libidn ) upnp? ( net-libs/libnatpmp net-libs/miniupnpc ) dev-util/scons
+DESCRIPTION=A C++ library for implementing XMPP applications
+EAPI=6
+HOMEPAGE=https://www.swift.im/
+IUSE=avahi ccache debug distcc doc expat experimental icu idn optimize static upnp
+KEYWORDS=~amd64 ~x86
+LICENSE=BSD BSD-1 CC-BY-3.0 GPL-3 OFL-1.1
+RDEPEND=dev-db/sqlite dev-libs/boost dev-libs/openssl:0= sys-libs/zlib avahi? ( net-dns/avahi ) ccache? ( dev-util/ccache ) distcc? ( sys-devel/distcc ) doc? ( app-text/docbook-xsl-stylesheets app-text/docbook-xml-dtd:4.5 ) expat? ( dev-libs/expat ) !expat? ( dev-libs/libxml2 ) icu? ( dev-libs/icu ) idn? ( net-dns/libidn ) upnp? ( net-libs/libnatpmp net-libs/miniupnpc )
+SLOT=0/4
+SRC_URI=https://swift.im/downloads/releases/swift-4.0/swift-4.0.tar.gz
+_eclasses_=multilib	97f470f374f2e94ccab04a2fb21d811e	multiprocessing	cac3169468f893670dac3e7cb940e045	scons-utils	fcace052aef60e6b0eb3023c26aa585a	toolchain-funcs	885c7d8dd70a58825f3d17e35a3cd1e9
+_md5_=90120e4084f21be46feb262f9efff399
