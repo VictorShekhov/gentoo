@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile
+DEPEND=x11-libs/libX11 x11-libs/libXext x11-proto/xextproto x11-proto/xproto
+DESCRIPTION=A window manager with more modern features than aewm
+EAPI=6
+HOMEPAGE=https://github.com/frankhale/aewmpp
+KEYWORDS=amd64 ppc x86 ~x86-fbsd
+LICENSE=GPL-2
+RDEPEND=x11-libs/libX11 x11-libs/libXext
+SLOT=0
+SRC_URI=mirror://gentoo/aewm++-1.1.5.tar.gz
+_eclasses_=multilib	97f470f374f2e94ccab04a2fb21d811e	toolchain-funcs	885c7d8dd70a58825f3d17e35a3cd1e9
+_md5_=21acd47d5027df35a95b2523d135ad5c
