@@ -28,7 +28,6 @@ RDEPEND="
 	x86? ( cg? ( media-gfx/nvidia-cg-toolkit ) )
 	amd64? ( cg? ( media-gfx/nvidia-cg-toolkit ) )"
 
-
 src_configure(){
 	./configure
 }
