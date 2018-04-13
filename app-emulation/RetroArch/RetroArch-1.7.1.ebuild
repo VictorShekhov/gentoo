@@ -16,7 +16,6 @@ IUSE="+opengl +pulseaudio -alsa -sdl -X"
 
 DEPEND="dev-libs/libxml2
 		>=media-libs/freetype-2.8
-		media-gfx/nvidia-cg-toolkit
 
 		opengl? ( virtual/opengl )
 		X? ( x11-libs/libX11 x11-apps/xinput )
