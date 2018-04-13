@@ -12,4 +12,7 @@ It enables you to run classic games on a wide range of computers and consoles th
 
 RetroArch has advanced features like shaders, netplay, rewinding, next-frame response times, and more.
 </longdescription>
+<use>
+		<flag name="cg">Use Nvidia CG Toolkit for CG shaders.</flag>
+</use>
 </pkgmetadata>
