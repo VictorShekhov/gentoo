@@ -1,0 +1,12 @@
+DEFINED_PHASES=install setup
+DEPEND=virtual/pkgconfig
+DESCRIPTION=A Management Controller for Ubiquiti Networks UniFi APs
+EAPI=6
+HOMEPAGE=https://www.ubnt.com
+LICENSE=ubiquiti
+RDEPEND=dev-db/mongodb dev-java/tomcat-native virtual/jre:1.8
+RESTRICT=bindist mirror strip
+SLOT=0
+SRC_URI=https://dl.ubnt.com/unifi/5.8.10-bfa527ff69/UniFi.unix.zip -> unifi-5.8.10.zip
+_eclasses_=multilib	97f470f374f2e94ccab04a2fb21d811e	systemd	a31844b675f1a1fea87fbe1144aee5f5	toolchain-funcs	885c7d8dd70a58825f3d17e35a3cd1e9	user	8bc2845510e2109af75e3eeac607ec81
+_md5_=c73576cce5543b87e1640f894f0d7cad
