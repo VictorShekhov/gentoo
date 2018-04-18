@@ -1,0 +1,11 @@
+# Copyright 1999-2018 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+# Path to FHEM config file
+FHEM_CFG="/opt/fhem/fhem.cfg"
+
+# Password for the FHEM telnet module
+FHEM_PASSWORD=""
+
+# Path to FHEM PID file
+FHEM_PID="/var/run/fhem/fhem.pid"
