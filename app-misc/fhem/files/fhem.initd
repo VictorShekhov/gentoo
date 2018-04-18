@@ -1,0 +1,22 @@
+#!/sbin/openrc-run
+# Copyright 1999-2018 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+FHEM_PATH="/opt/fhem"
+FHEM_PORT="7072"
+FHEM_SCRIPT="fhem.pl"
+FHEM_SHUTDOWN="shutdown"
+PID_DIR="/var/run/fhem"
+
+start() {
+	ebegin "Starting FHEM"
+	[ -d "${PID_DIR}" ] || mkdir -p "${PID_DIR}" && chown fhem.fhem "${PID_DIR}"
+	start-stop-daemon --start --chdir ${FHEM_PATH} --pid ${FHEM_PID} --quiet --user fhem --group fhem --exec ${FHEM_PATH}/${FHEM_SCRIPT} -- ${FHEM_CFG}
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping FHEM"
+	start-stop-daemon --stop --chdir ${FHEM_PATH} --pid ${FHEM_PID} --quiet --user fhem --group fhem --exec ${FHEM_PATH}/${FHEM_SCRIPT} -- ${FHEM_PORT} ${FHEM_PASSWORD} ${FHEM_SHUTDOWN}
+	eend $?
+}
