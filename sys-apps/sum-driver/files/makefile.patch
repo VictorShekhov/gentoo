@@ -1,0 +1,56 @@
+--- a/Makefile	2015-12-01 05:16:51.000000000 +0100
++++ b/Makefile	2018-04-20 21:27:44.140093423 +0200
+@@ -1,39 +1,21 @@
+-# Comment/uncomment the following line to disable/enable debugging
+-DEBUG = y
+-
+-# Add your debugging flag (or not) to CFLAGS
+-ifeq ($(DEBUG),y)
+-  DEBFLAGS = -O -g # "-O" is needed to expand inlines
+-else
+-  DEBFLAGS = -O2
+-endif
+-
+-EXTRA_CFLAGS += $(DEBFLAGS) -I$(LDDINCDIR)
+-
+-ifneq ($(KERNELRELEASE),)
+-# call from kernel build system
+-
+-obj-m	:= sum_bios.o
+-
+-else
+-
+-KERNELDIR ?= /lib/modules/$(shell uname -r)/build
+-PWD       := $(shell pwd)
+-
+-default:
+-	$(MAKE) -C $(KERNELDIR) M=$(PWD) LDDINCDIR=$(PWD)/../include modules
+-
+-endif
++obj-m := sum_bios.o
+ 
++KVERSION := $(shell uname -r)
++KDIR := /lib/modules/$(KVERSION)/build
++PWD := $(shell pwd)
+ 
++EXTRA_CFLAGS = $(CFLAGS) -Wno-incompatible-pointer-types
++EXTRA_LDFLAGS = $(LDFLAGS)
+ 
+ clean:
+-	rm -rf *.o *~ core .depend .*.cmd *.ko *.mod.c .tmp_versions Module.* modules.* sum_bios.ko.unsigned
++	$(MAKE) -C $(KDIR) M=$(PWD) clean
+ 
+-depend .depend dep:
+-	$(CC) $(CFLAGS) -M *.c > .depend
++default:
++	$(MAKE) -C $(KDIR) M=$(PWD) modules
+ 
++install:
++	$(MAKE) -C $(KDIR) M=$(PWD) modules_install
+ 
+-ifeq (.depend,$(wildcard .depend))
+-include .depend
+-endif
++load:
++	-/sbin/rmmod sum_bios
++	/sbin/insmod sum_bios.ko
