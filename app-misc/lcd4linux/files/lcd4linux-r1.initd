@@ -1,0 +1,49 @@
+#!/sbin/openrc-run
+# Copyright 1999-2018 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+# If no symlink, set instance name to an empty name
+LCD4LINUX_NAME="${SVCNAME}"
+if [ "${LCD4LINUX_NAME}" == "lcd4linux" ]; then
+	LCD4LINUX_NAME="lcd4linux"
+	LCD4LINUX_NAME_INSTANCE=""
+	LCD4LINUX_CONFIG="/etc/lcd4linux/lcd4linux.conf"
+	LCD4LINUX_PID="/run/lcd4linux.pid"
+else
+	LCD4LINUX_NAME="${SVCNAME#lcd4linux.}"
+	LCD4LINUX_NAME_INSTANCE="($LCD4LINUX_NAME)"
+	LCD4LINUX_CONFIG="/etc/lcd4linux/lcd4linux.${LCD4LINUX_NAME}.conf"
+	LCD4LINUX_PID="/run/lcd4linux.${LCD4LINUX_NAME}.pid"
+fi
+
+# Variables
+LCD4LINUX="/usr/bin/lcd4linux"
+LCD4LINUX_GROUP="root"
+LCD4LINUX_USER="root"
+
+checkconfig() {
+	# Test, if config exists
+	if [ ! -f ${LCD4LINUX_CONFIG} ]; then
+		eerror "Please create ${LCD4LINUX_CONFIG} before starting LCD4Linux."
+		return 1
+	fi
+	return 0
+}
+
+start() {
+	checkconfig || return $?
+	ebegin "Starting LCD4Linux ${LCD4LINUX_NAME_INSTANCE}"
+	start-stop-daemon --start --quiet \
+			--exec ${LCD4LINUX} --group ${LCD4LINUX_GROUP} \
+			--pidfile ${LCD4LINUX_PID} --user ${LCD4LINUX_USER} \
+			-- -f ${LCD4LINUX_CONFIG} -p ${LCD4LINUX_PID}
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping LCD4Linux ${LCD4LINUX_NAME_INSTANCE}"
+	start-stop-daemon --stop --quiet \
+			--exec ${LCD4LINUX} --group ${LCD4LINUX_GROUP} \
+			--pidfile ${LCD4LINUX_PID} --user ${LCD4LINUX_USER}
+	eend $?
+}
