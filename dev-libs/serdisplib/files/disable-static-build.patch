@@ -1,0 +1,193 @@
+--- a/src/Makefile.in	2017-02-02 13:37:48.000000000 +0100
++++ b/src/Makefile.in	2018-04-25 00:36:57.000000000 +0200
+@@ -65,7 +65,6 @@
+ 
+ LIB_NAME=serdisp
+ 
+-LIB_STATIC=lib$(LIB_NAME).a
+ LIB_SHARED=lib$(LIB_NAME).so.$(VERSION)
+ 
+ LIB_DIR=../lib
+@@ -78,19 +77,12 @@
+ 
+ ifeq "@needs_libdl@" "true"
+  EXTRA_LIBS+=-ldl
+- ifeq "@use_sharedlib@" "false"
+-   EXTRA_LIBS_STATIC=@EXTRA_LIBS_STATIC@
+- endif
+ endif
+ 
+ 
+-# link shared or static lib to executables
++# link shared lib to executables
+ ifeq "@use_sharedlib@" "true"
+   LIB_SERDISP=-L$(LIB_DIR) -l$(LIB_NAME)
+-else
+-  LIB_SERDISP=$(LIB_DIR)/$(LIB_STATIC)
+-  # static execs also need to link to libraries in LDFLAGS
+-  EXTRA_LIBS_STATIC+=$(LDFLAGS)
+ endif
+ 
+ 
+@@ -167,9 +159,7 @@
+ 
+ all: libraries programs
+ 
+-libraries: library.static library.shared
+-
+-library.static: $(LIB_DIR)/$(LIB_STATIC)
++libraries: library.shared
+ 
+ library.shared: $(LIB_DIR)/$(LIB_SHARED)
+ 
+@@ -178,18 +168,14 @@
+ .c.o:
+ 	$(CC) $(CFLAGS) $(DEFINES) -c $<
+ 
+-$(LIB_DIR)/$(LIB_STATIC): $(LIB_OBJECTS)
+-	$(top_srcdir)/mkinstalldirs $(top_srcdir)/lib
+-	$(AR) $(LIB_DIR)/$(LIB_STATIC) $(LIB_OBJECTS)
+-
+ $(LIB_DIR)/$(LIB_SHARED): $(LIB_OBJECTS)
+ 	$(top_srcdir)/mkinstalldirs $(top_srcdir)/lib
+ 	$(CC) -fPIC -shared $(SONAME_FLAG) -o $(LIB_DIR)/$(LIB_SHARED) $(LIB_OBJECTS) $(LDFLAGS) $(EXTRA_LIBS)
+ 	cd $(LIB_DIR) && $(LN_S) -f $(LIB_SHARED) lib$(LIB_NAME).so.$(VERSION_MAJOR)
+ 	cd $(LIB_DIR) && $(LN_S) -f lib$(LIB_NAME).so.$(VERSION_MAJOR) lib$(LIB_NAME).so
+ 
+-testserdisp: $(LIB_DIR)/$(LIB_STATIC) $(OBJECTS)
+-	$(CC) -o testserdisp $(OBJECTS) $(LIB_SERDISP) $(EXTRA_LIBS_STATIC)
++testserdisp: $(LIB_DIR)/$(LIB_SHARED) $(OBJECTS)
++	$(CC) $(LDFLAGS) -o testserdisp $(OBJECTS) $(LIB_SERDISP) $(EXTRA_LIBS)
+ 
+ clean:
+ 	/bin/rm -f $(OBJECTS) $(LIB_OBJECTS) $(LIB_DIR)/*.a $(LIB_DIR)/*.so*
+@@ -198,7 +184,7 @@
+ distclean: clean
+ 	/bin/rm -f Makefile
+ 
+-install: $(LIB_DIR)/$(LIB_SHARED) $(LIB_DIR)/$(LIB_STATIC)
++install: $(LIB_DIR)/$(LIB_SHARED)
+ 	$(top_srcdir)/mkinstalldirs $(bindir)
+ 	$(top_srcdir)/mkinstalldirs $(libdir)
+ 	$(top_srcdir)/mkinstalldirs $(includedir)
+@@ -206,7 +192,6 @@
+ 	
+ 	$(INSTALL_PROGRAM) $(PROGRAMS) $(bindir)/
+ 	$(INSTALL_PROGRAM) $(LIB_DIR)/$(LIB_SHARED) $(libdir)/
+-	$(INSTALL_DATA) $(LIB_DIR)/$(LIB_STATIC) $(libdir)/
+ 	list='$(LIB_HEADERFILES)'; \
+ 	for headerfile in $$list; do \
+ 	  $(INSTALL_DATA) ../include/serdisplib/$$headerfile $(includedir)/serdisplib/ ; \
+--- a/server/Makefile.in	2013-05-25 12:58:14.000000000 +0200
++++ b/server/Makefile.in	2018-04-25 00:38:00.000000000 +0200
+@@ -51,26 +51,14 @@
+ 
+ LIB_NAME=serdisp
+ 
+-LIB_STATIC=lib$(LIB_NAME).a
+ LIB_SHARED=lib$(LIB_NAME).so.$(VERSION)
+ 
+ LIB_DIR=../lib
+ 
+-# link programs to libdl if required by OS and libserdisp is linked statically
+-ifeq "@needs_libdl@" "true"
+-  ifeq "@use_sharedlib@" "false"
+-    EXTRA_LIBS_STATIC=@EXTRA_LIBS_STATIC@
+-  endif
+-endif
+-
+ 
+-# link shared or static lib to executables
++# link shared lib to executables
+ ifeq "@use_sharedlib@" "true"
+   LIB_SERDISP=-L$(LIB_DIR) -l$(LIB_NAME)
+-else
+-  LIB_SERDISP=$(LIB_DIR)/$(LIB_STATIC)
+-  # static execs also need to link to libraries in LDFLAGS
+-  EXTRA_LIBS_STATIC+=$(LDFLAGS)
+ endif
+ 
+ 
+@@ -83,14 +71,14 @@
+ .c.o:
+ 	$(CC) $(CFLAGS) $(DEFINES)  -c $(INCLUDES) $<
+ 
+-serdispd: $(LIB_DIR)/$(LIB_STATIC) $(SDISPDOBJECTS)
+-	$(CC) -o $@ $(SDISPDOBJECTS) $(LIB_SERDISP) $(EXTRA_LIBS_STATIC)
++serdispd: $(LIB_DIR)/$(LIB_SHARED) $(SDISPDOBJECTS)
++	$(CC) $(LDFLAGS) -o $@ $(SDISPDOBJECTS) $(LIB_SERDISP)
+ 
+-serdisplearn: $(LIB_DIR)/$(LIB_STATIC) $(SLEARNOBJECTS)
+-	$(CC) -o $@ $(SLEARNOBJECTS) $(LIB_SERDISP) $(EXTRA_LIBS_STATIC)
++serdisplearn: $(LIB_DIR)/$(LIB_SHARED) $(SLEARNOBJECTS)
++	$(CC) $(LDFLAGS) -o $@ $(SLEARNOBJECTS) $(LIB_SERDISP)
+ 
+-serdispproxy: $(LIB_DIR)/$(LIB_STATIC) $(SPROXYOBJECTS)
+-	$(CC) -o $@ $(SPROXYOBJECTS) $(LIB_SERDISP) $(EXTRA_LIBS_STATIC)
++serdispproxy: $(LIB_DIR)/$(LIB_SHARED) $(SPROXYOBJECTS)
++	$(CC) $(LDFLAGS) -o $@ $(SPROXYOBJECTS) $(LIB_SERDISP)
+ 
+ 
+ 
+--- a/tools/Makefile.in	2014-03-30 09:13:59.000000000 +0200
++++ b/tools/Makefile.in	2018-04-25 00:37:41.000000000 +0200
+@@ -41,27 +41,14 @@
+ 
+ LIB_NAME=serdisp
+ 
+-LIB_STATIC=lib$(LIB_NAME).a
+ LIB_SHARED=lib$(LIB_NAME).so.$(VERSION)
+ 
+ LIB_DIR=../lib
+ 
+ 
+-# link programs to libdl if required by OS and libserdisp is linked statically
+-ifeq "@needs_libdl@" "true"
+-  ifeq "@use_sharedlib@" "false"
+-    EXTRA_LIBS_STATIC=@EXTRA_LIBS_STATIC@
+-  endif
+-endif
+-
+-
+-# link shared or static lib to executables
++# link shared lib to executables
+ ifeq "@use_sharedlib@" "true"
+   LIB_SERDISP=-L$(LIB_DIR) -l$(LIB_NAME)
+-else
+-  LIB_SERDISP=$(LIB_DIR)/$(LIB_STATIC)
+-  # static execs also need to link to libraries in LDFLAGS
+-  EXTRA_LIBS_STATIC+=$(LDFLAGS)
+ endif
+ 
+ 
+@@ -130,20 +117,20 @@
+ .c.o:
+ 	$(CC) $(CFLAGS) $(DEFINES)  -c $(INCLUDES) $<
+ 
+-multidisplay: $(LIB_DIR)/$(LIB_STATIC) $(OBJECTS)
+-	$(CC) -o multidisplay $(OBJ_MULTIDISPLAY) $(LIB_SERDISP) $(EXTRA_LIBS_STATIC) $(EXTRA_LIBS)
++multidisplay: $(LIB_DIR)/$(LIB_SHARED) $(OBJECTS)
++	$(CC) $(LDFLAGS) -o multidisplay $(OBJ_MULTIDISPLAY) $(LIB_SERDISP) $(EXTRA_LIBS_STATIC) $(EXTRA_LIBS)
+ 
+-l4m132c_tool: $(LIB_DIR)/$(LIB_STATIC) $(OBJECTS)
+-	$(CC) -o l4m132c_tool $(OBJ_L4M132C_TOOL) $(LIB_SERDISP) $(EXTRA_LIBS_STATIC)
++l4m132c_tool: $(LIB_DIR)/$(LIB_SHARED) $(OBJECTS)
++	$(CC) $(LDFLAGS) -o l4m132c_tool $(OBJ_L4M132C_TOOL) $(LIB_SERDISP) $(EXTRA_LIBS_STATIC)
+ 
+-sdcmegtron_tool: $(LIB_DIR)/$(LIB_STATIC) $(OBJECTS)
+-	$(CC) -o sdcmegtron_tool $(OBJ_SDCMEGTRON_TOOL) $(LIB_SERDISP) $(EXTRA_LIBS_STATIC)
++sdcmegtron_tool: $(LIB_DIR)/$(LIB_SHARED) $(OBJECTS)
++	$(CC) $(LDFLAGS) -o sdcmegtron_tool $(OBJ_SDCMEGTRON_TOOL) $(LIB_SERDISP) $(EXTRA_LIBS_STATIC)
+ 
+-l4m320t_tool: $(LIB_DIR)/$(LIB_STATIC) $(OBJECTS)
+-	$(CC) -o l4m320t_tool $(OBJ_L4M320T_TOOL) $(LIB_SERDISP) $(EXTRA_LIBS_STATIC)
++l4m320t_tool: $(LIB_DIR)/$(LIB_SHARED) $(OBJECTS)
++	$(CC) $(LDFLAGS) -o l4m320t_tool $(OBJ_L4M320T_TOOL) $(LIB_SERDISP) $(EXTRA_LIBS_STATIC)
+ 
+-touchscreen_tool: $(LIB_DIR)/$(LIB_STATIC) $(OBJECTS)
+-	$(CC) -o touchscreen_tool $(OBJ_TOUCHSCREEN_TOOL) $(LIB_SERDISP) $(EXTRA_LIBS_STATIC)
++touchscreen_tool: $(LIB_DIR)/$(LIB_SHARED) $(OBJECTS)
++	$(CC) $(LDFLAGS) -o touchscreen_tool $(OBJ_TOUCHSCREEN_TOOL) $(LIB_SERDISP) $(EXTRA_LIBS_STATIC)
+ 
+ clean:
+ 	/bin/rm -f *.o
