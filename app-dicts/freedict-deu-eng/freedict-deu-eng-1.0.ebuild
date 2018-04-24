@@ -5,7 +5,6 @@ EAPI=6
 
 FORLANG="German"
 TOLANG="English"
-inherit freedict
+inherit dict
 
 KEYWORDS="~amd64 ~x86"
-IUSE=""
