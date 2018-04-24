@@ -5,7 +5,6 @@ EAPI=6
 
 FORLANG="English"
 TOLANG="French"
-inherit freedict
+inherit dict
 
 KEYWORDS="alpha ~amd64 ~hppa ~mips ppc sparc x86"
-IUSE=""
