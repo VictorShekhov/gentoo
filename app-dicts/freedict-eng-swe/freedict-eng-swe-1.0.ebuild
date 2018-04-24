@@ -3,10 +3,8 @@
 
 EAPI=6
 
-KEYWORDS="alpha ~amd64 ~hppa ~mips ppc sparc x86"
-
 FORLANG="English"
 TOLANG="Swedish"
-inherit freedict
+inherit dict
 
-IUSE=""
+KEYWORDS="alpha ~amd64 ~hppa ~mips ppc sparc x86"
