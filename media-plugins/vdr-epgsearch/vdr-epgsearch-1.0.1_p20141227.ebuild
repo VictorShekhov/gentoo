@@ -1,7 +1,7 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 inherit vdr-plugin-2
 
@@ -46,7 +46,10 @@ src_prepare() {
 	# remove untranslated .po files
 	rm "${S}"/po/{ca_ES,da_DK,el_GR,et_EE,hr_HR,hu_HU,nn_NO,pl_PL,pt_PT,ro_RO,ru_RU,sl_SI,sv_SE,tr_TR}.po
 
-	epatch "${FILESDIR}/vdr-epgsearch-1.0.1_beta5_makefile.diff"
+	PATCHES=(
+		"${FILESDIR}/vdr-epgsearch-1.0.1_beta5_makefile.diff"
+		"${FILESDIR}/fix-manpage-generation.diff"
+		)
 
 	use conflictcheckonly || sed -e "s:install-\$(PLUGIN3)::" -i Makefile
 	use epgsearchonly || sed -e "s:install-\$(PLUGIN2)::" -i Makefile
@@ -89,11 +92,11 @@ src_install() {
 	doins conf/epgsearchmenu.conf
 	doins conf/epgsearchconflmail.templ conf/epgsearchupdmail.templ
 
-	nonfatal dodoc conf/*.templ HISTORY*
+	DOC="conf/*.templ HISTORY*"
 
-	doman man/en/*.gz
+	doman man/en/*
 
 	if use l10n_de; then
-		doman -i18n=de man/de/*.gz
+		doman -i18n=de man/de/*
 	fi
 }
