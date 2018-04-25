@@ -3,8 +3,10 @@
 
 EAPI=6
 
-FORLANG="Italian"
-TOLANG="English"
 inherit dict
 
-KEYWORDS="alpha ~amd64 ~hppa ~mips ppc sparc x86"
+MY_P="${P/dictd-/}-pre"
+
+SRC_URI="ftp://ftp.dict.org/pub/dict/pre/${MY_P}.tar.gz"
+
+KEYWORDS="x86 ppc sparc amd64 ppc64"
