@@ -7,5 +7,5 @@ LICENSE=GPL-2+
 RDEPEND=app-text/dictd
 SLOT=0
 SRC_URI=http://freedict.sourceforge.net/download/linux/eng-fra.tar.gz
-_eclasses_=freedict	2bc659a64b6743fb2efcb7d2cea78f22
-_md5_=c98f29ca88b42f5233b1eccfa814cdf2
+_eclasses_=dict	febcde869a249ca323fec2b1d23695fc
+_md5_=62e24a76b4a2ca5d448b738212243bb2

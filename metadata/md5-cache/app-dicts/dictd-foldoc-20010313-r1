@@ -1,11 +1,11 @@
 DEFINED_PHASES=install
-DEPEND=>=app-text/dictd-1.5.5
 DESCRIPTION=The Free On-line Dictionary of Computing for dict
-EAPI=0
+EAPI=6
 HOMEPAGE=http://www.dict.org/
 KEYWORDS=x86 ppc sparc amd64 ppc64
-LICENSE=GPL-2
-RDEPEND=>=app-text/dictd-1.5.5
+LICENSE=GPL-2+
+RDEPEND=app-text/dictd
 SLOT=0
 SRC_URI=ftp://ftp.dict.org/pub/dict/pre/foldoc-20010313.tar.gz
-_md5_=6610c5669d2157cc1f9306b7b02efe15
+_eclasses_=dict	febcde869a249ca323fec2b1d23695fc
+_md5_=c9a1fad870a59209dab73fd6e6ce420f

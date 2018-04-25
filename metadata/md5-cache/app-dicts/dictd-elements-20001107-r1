@@ -1,11 +1,11 @@
 DEFINED_PHASES=install
-DESCRIPTION=The Devil's Dictionary for dict
+DESCRIPTION=elements dictionary for dictd
 EAPI=6
 HOMEPAGE=http://www.dict.org/
 KEYWORDS=x86 ppc sparc amd64 ppc64
 LICENSE=GPL-2+
 RDEPEND=app-text/dictd
 SLOT=0
-SRC_URI=ftp://ftp.dict.org/pub/dict/pre/devils-dict-pre.tar.gz
+SRC_URI=ftp://ftp.dict.org/pub/dict/pre/elements-20001107-pre.tar.gz
 _eclasses_=dict	febcde869a249ca323fec2b1d23695fc
-_md5_=605e10a25f05cc1e7ac98e71eeb9e168
+_md5_=09f107c295fc7bbb62618a6a22a47f80
