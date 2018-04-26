@@ -1,0 +1,11 @@
+DEFINED_PHASES=install
+DEPEND=>=dev-lang/python-3:* >=x11-wm/compiz-0.8[dbus] <x11-wm/compiz-0.9[dbus]
+DESCRIPTION=Helper utilities for debugging Compiz
+EAPI=6
+HOMEPAGE=https://github.com/compiz-reloaded
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2+
+RDEPEND=>=dev-lang/python-3:* >=x11-wm/compiz-0.8[dbus] <x11-wm/compiz-0.9[dbus]
+SLOT=0
+SRC_URI=https://github.com/compiz-reloaded/compiz-debug-utils/archive/f700dd2b6af1f0c93b6b1eb1d75e658783f848e2.zip -> compiz-debug-utils-0_pre20171023-f700dd2b6af1f0c93b6b1eb1d75e658783f848e2.zip
+_md5_=a163aabd8d8c59ac7dd61d6af60e027c

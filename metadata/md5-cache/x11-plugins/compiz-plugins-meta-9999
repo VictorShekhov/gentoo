@@ -1,0 +1,9 @@
+DEFINED_PHASES=-
+DESCRIPTION=Compiz plugins (meta)
+EAPI=6
+HOMEPAGE=https://github.com/compiz-reloaded
+IUSE=community compicc experimental extra extra-snowflake-textures
+LICENSE=GPL-2+
+RDEPEND=>=x11-plugins/compiz-plugins-main-9999 community? ( >=x11-plugins/compiz-plugins-community-9999 ) compicc? ( >=x11-plugins/compicc-9999 ) experimental? ( >=x11-plugins/compiz-plugins-experimental-9999 ) extra? ( >=x11-plugins/compiz-plugins-extra-9999 ) extra-snowflake-textures? ( >=x11-plugins/compiz-extra-snowflake-textures-9999 )
+SLOT=0
+_md5_=6e3f43faff53bd8478167a72f0a8d50a

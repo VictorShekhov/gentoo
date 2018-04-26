@@ -1,0 +1,12 @@
+DEFINED_PHASES=configure install
+DEPEND=gnome-base/librsvg virtual/jpeg:0 virtual/glu >=x11-libs/compiz-bcop-0.7.3 <x11-libs/compiz-bcop-0.9 >=x11-wm/compiz-0.8 <x11-wm/compiz-0.9 x11-libs/cairo >=dev-util/intltool-0.35 >=sys-devel/gettext-0.17 virtual/pkgconfig
+DESCRIPTION=Compiz Fusion Window Decorator Plugins
+EAPI=6
+HOMEPAGE=https://github.com/compiz-reloaded
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2+
+RDEPEND=gnome-base/librsvg virtual/jpeg:0 virtual/glu >=x11-libs/compiz-bcop-0.7.3 <x11-libs/compiz-bcop-0.9 >=x11-wm/compiz-0.8 <x11-wm/compiz-0.9 x11-libs/cairo
+SLOT=0
+SRC_URI=https://github.com/compiz-reloaded/compiz-plugins-main/releases/download/v0.8.14/compiz-plugins-main-0.8.14.tar.xz
+_eclasses_=desktop	2ccd1dd1dd7bfb8795eea024a4f91bb6	epatch	8233751dc5105a6ae8fcd86ce2bb0247	estack	43ddf5aaffa7a8d0482df54d25a66a1f	eutils	b4eee44966573b7fb6761e507910b306	ltprune	2770eed66a9b8ef944714cd0e968182e	multilib	97f470f374f2e94ccab04a2fb21d811e	preserve-libs	ef207dc62baddfddfd39a164d9797648	toolchain-funcs	885c7d8dd70a58825f3d17e35a3cd1e9
+_md5_=f754b2e78a29bbd19fd51dfa26430b3f

@@ -1,0 +1,12 @@
+DEFINED_PHASES=configure install
+DEPEND=dev-libs/libxml2 dev-libs/protobuf x11-libs/libX11 >=x11-wm/compiz-0.8 <x11-wm/compiz-0.9 >=dev-util/intltool-0.41 virtual/pkgconfig x11-proto/xproto
+DESCRIPTION=CompizConfig plugin required for compizconfig-settings-manager
+EAPI=6
+HOMEPAGE=https://github.com/compiz-reloaded
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2+
+RDEPEND=dev-libs/libxml2 dev-libs/protobuf x11-libs/libX11 >=x11-wm/compiz-0.8 <x11-wm/compiz-0.9
+RESTRICT=test
+SLOT=0
+SRC_URI=https://github.com/compiz-reloaded/libcompizconfig/releases/download/v0.8.14/libcompizconfig-0.8.14.tar.xz
+_md5_=9a5e8204013facf0c97dae96fc54f341

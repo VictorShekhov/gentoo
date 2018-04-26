@@ -1,0 +1,10 @@
+DEFINED_PHASES=-
+DEPEND=>=x11-wm/emerald-0.8.12 <x11-wm/emerald-0.9
+DESCRIPTION=Emerald window decorator themes
+EAPI=6
+HOMEPAGE=https://github.com/compiz-reloaded
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2+
+SLOT=0
+SRC_URI=https://github.com/compiz-reloaded/emerald-themes/releases/download/v0.8.14/emerald-themes-0.8.14.tar.xz
+_md5_=c0d397dea0d9df2dbe48c05d02376933

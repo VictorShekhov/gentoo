@@ -1,0 +1,10 @@
+DEFINED_PHASES=install unpack
+DEPEND=>=dev-lang/python-3:* =x11-wm/compiz-9999[dbus] >=dev-vcs/git-1.8.2.1
+DESCRIPTION=Helper utilities for debugging Compiz
+EAPI=6
+HOMEPAGE=https://github.com/compiz-reloaded
+LICENSE=GPL-2+
+RDEPEND=>=dev-lang/python-3:* =x11-wm/compiz-9999[dbus]
+SLOT=0
+_eclasses_=git-r3	fec09a83ae965b041b47f5ff7c8ba29a
+_md5_=a163aabd8d8c59ac7dd61d6af60e027c
